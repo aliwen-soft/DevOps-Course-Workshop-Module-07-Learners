@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest      # Sets the build environment a machine with the latest Ubuntu installed
     steps:
       - uses: actions/checkout@v2
-      - name: set up dotnet
+      - name: Set up dotnet
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: '6.0'
@@ -15,3 +15,10 @@ jobs:
         run: dotnet build
       - name: Run C# tests
         run: dotnet test
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - name : Install ts dependency
+        run: npm install
+        working-directory: ./DotnetTemplate.Web
