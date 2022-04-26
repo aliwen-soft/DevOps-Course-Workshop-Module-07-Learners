@@ -2,9 +2,17 @@ pipeline {
     agent none
 
     stages {
-        stage('Build and test C sharp') {
+        stage('Build and test C#') {
+            agent {
+                docker {
+                    image 'mcr.microsoft.com/dotnet/sdk:6.0'
+                }
+            }
             steps {
-                echo 'cSharp..'
+                withEnv(['DOTNET_CLI_HOME=/tmp/dotnet_cli_home']){
+                    sh 'dotnet build'
+                    sh 'dotnet test'
+                }
             }
         }
         stage('Build and test Ts') {
