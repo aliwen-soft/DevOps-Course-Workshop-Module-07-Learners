@@ -1,20 +1,22 @@
 pipeline {
-    agent any
+    agent none
 
     stages {
-        stage('Build') {
+        stage('Build and test C sharp') {
             steps {
-                echo 'Building..'
+                echo 'cSharp..'
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
+        stage('Build and test Ts') {
+            agent {
+                docker {
+                    image 'node:17-bullseye'
+                }
             }
-        }
-        stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                sh 'npm install'
+                sh 'npm run build'
+                sh 'npm t'
             }
         }
     }
