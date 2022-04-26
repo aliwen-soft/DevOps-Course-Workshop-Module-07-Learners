@@ -14,10 +14,13 @@ pipeline {
                 }
             }
             steps {
-                sh 'npm install'
-                sh 'npm run build'
-                sh 'npm t'
-            }
+                dir('DotnetTemplate.Web'){
+                    sh 'npm install'
+                    sh 'npm run build'
+                    sh 'npm t'
+                    sh 'npm run lint'
+                }
+            }  
         }
     }
 }
